@@ -1,3 +1,5 @@
 # microservice specific routes
 
-GET        /hello-world             uk.gov.hmrc.voatrafficthrottle.controllers.MicroserviceHelloWorld.hello
+GET        /cca/throttled        @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.ccaRoute
+GET        /vmv/throttled        @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.vmvRoute
+
