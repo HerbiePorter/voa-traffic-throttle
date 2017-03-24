@@ -22,11 +22,9 @@ class Module(environment: Environment,
              configuration: Configuration) extends AbstractModule {
 
   override def configure() = {
-    bindConstant().annotatedWith(Names.named("routes.cca.url")).to(configuration.getString(s"microservice.routes.cca.url").get)
-    bindConstant().annotatedWith(Names.named("routes.cca.rate")).to(configuration.getString(s"microservice.routes.cca.rate").get)
-
-    bindConstant().annotatedWith(Names.named("routes.vmv.url")).to(configuration.getString(s"microservice.routes.vmv.url").get)
-    bindConstant().annotatedWith(Names.named("routes.vmv.rate")).to(configuration.getString(s"microservice.routes.vmv.rate").get)
+    bindConstant().annotatedWith(Names.named("routes.ccaRegistration.throttle")).to(configuration.getInt("microservice.routes.ccaRegistration.throttle").get)
+    bindConstant().annotatedWith(Names.named("routes.ccaDashboard.throttle")).to(configuration.getInt("microservice.routes.ccaDashboard.throttle").get)
+    bindConstant().annotatedWith(Names.named("routes.vmvSearch.throttle")).to(configuration.getInt("microservice.routes.vmvSearch.throttle").get)
   }
 
 }

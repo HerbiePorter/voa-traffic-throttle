@@ -1,5 +1,6 @@
 # microservice specific routes
 
-GET        /cca/throttled        @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.ccaRoute
-GET        /vmv/throttled        @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.vmvRoute
+GET        /cca/dashboard/throttled           @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.ccaDashboardThrottled
+GET        /cca/registration/throttled        @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.ccaRegistrationThrottled
+GET        /vmv/search/throttled              @uk.gov.hmrc.voatrafficthrottle.TrafficThrottleController.vmvSearchThrottled
 

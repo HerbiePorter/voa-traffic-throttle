@@ -25,31 +25,30 @@ import play.api.mvc._
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class TrafficThrottleController @Inject()(@Named("routes.cca.url") ccaUrl: String,
-                                          @Named("routes.cca.rate") ccaRate: Integer,
-                                          @Named("routes.vmv.url") vmvUrl: String,
-                                          @Named("routes.vmv.rate") vmvRate: Integer)(implicit exec: ExecutionContext)
+class TrafficThrottleController @Inject()(@Named("routes.ccaRegistration.throttle") ccaRegistrationThrottle: Integer,
+                                          @Named("routes.ccaDashboard.throttle") ccaDashboardThrottle: Integer,
+                                          @Named("routes.vmvSearch.throttle") vmvSearchThrottle: Integer)
+                                         (implicit exec: ExecutionContext)
   extends Controller {
 
   val log = Logger(this.getClass)
 
   def next = scala.util.Random.nextInt(100)
 
-  val ccaRoute = Action.async { implicit request =>
-    if(next < ccaRate){
-      Future.successful(Ok("false"))
-    } else {
-      Future.successful(Ok("true"))
-    }
+  val ccaRegistrationThrottled: Action[AnyContent] = Action {
+    implicit request => Ok(throttled(ccaRegistrationThrottle).toString)
   }
 
-  val vmvRoute = Action.async { implicit request =>
-    if(next < vmvRate){
-      Future.successful(Ok("false"))
-    } else {
-      Future.successful(Ok("true"))
-    }
+  val ccaDashboardThrottled: Action[AnyContent] = Action {
+    implicit request => Ok(throttled(ccaDashboardThrottle).toString)
   }
+
+  val vmvSearchThrottled: Action[AnyContent] = Action {
+    implicit request => Ok(throttled(vmvSearchThrottle).toString)
+  }
+
+  def throttled(throttle: Integer) = !(next <= throttle)
+
 }
 
 
